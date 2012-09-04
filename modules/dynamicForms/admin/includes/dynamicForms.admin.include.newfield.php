@@ -59,7 +59,7 @@ function admin_dynamicFormsBuild($data,$db) {
 			'value' => $field['id']
 		);
 	}
-	$form = $data->output['fromForm'] = new formHandler('formfields',$data,true);
+	$form = $data->output['fromForm'] = new formHandler('formFields',$data,true);
 	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)) {
 		$form->caption = 'New Form Field';
 		$form->populateFromPostData();
