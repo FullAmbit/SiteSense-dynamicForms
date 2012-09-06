@@ -1,4 +1,3 @@
-
 <?php
 
 function languages_dynamicForms_admin_en_us(){
