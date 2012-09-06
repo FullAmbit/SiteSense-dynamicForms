@@ -94,11 +94,11 @@ function admin_dynamicFormsShow($data)
 	switch($data->output['delete'])
 	{	
 		case 'cancelled':
-			theme_dynamicFormsDeleteCancelled($aRoot);
+			theme_dynamicFormsDeleteCancelled($data,$aRoot);
 		break;
 		
 		case 'deleted':
-			theme_dynamicFormsDeleteDeleted($aRoot);
+			theme_dynamicFormsDeleteDeleted($data,$aRoot);
 		break;
 		
 		default:

@@ -25,7 +25,7 @@
 function theme_dynamicFormsDeleteReject($data,$aRoot) {
 	echo '
 		<h2>',$data->phrases['dynamic-forms']['deleteFormRejectHeading'],'</h2>
-		',$data->phrases['dynamic-forms']['deleteFormRejectMesssage'],'
+		',$data->phrases['dynamic-forms']['deleteFormRejectMessage'],'
 		<div class="buttonList">
 			<a href="'.$aRoot.'" title="Return To Forms">',$data->phrases['dynamic-forms']['returnToForms'],'</a>
 		</div>';
@@ -55,7 +55,7 @@ function theme_dynamicFormsDeleteDefault($data,$aRoot) {
 				<legend>'.$data->phrases['dynamic-forms']['deleteFormConfirmHeading'].'</legend>
 			</fieldset>
 			<input type="submit" name="delete" value="'.$data->phrases['core']['actionConfirmDelete'].'" />
-			<input type="submit" name="cancel" value="'.$data->phrases['core']['actionCancelDelete'].' />
+			<input type="submit" name="cancel" value="'.$data->phrases['core']['actionCancelDelete'].'" />
 			<input type="hidden" name="fromForm" value="'.$data->action[3].'" />
 		</form>';
 }
