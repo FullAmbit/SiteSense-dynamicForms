@@ -25,10 +25,15 @@
 function dynamicForms_buildContent($data,$db) {
 	common_include('libraries/forms.php');
 	$form = false;
-	if ($data->action[1] !== false){
+	if(isset($data->output['fauxaction'])){
+		$action=$data->output['fauxaction'];
+	}else{
+		$action=$data->action[1];
+	}
+	if ($action!==false){
 		$statement=$db->prepare('getFormByShortName','dynamicForms');
 		$statement->execute(array(
-			':shortName' => $data->action[1]
+			':shortName' => $action
 		));
 		$form=$statement->fetch();
 	}
