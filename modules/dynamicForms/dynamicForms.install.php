@@ -26,7 +26,7 @@ function dynamicForms_settings() {
 	return array(
 		'name'      => 'dynamicForms',
 		'shortName' => 'dynamic-forms',
-		'version'   => '1.0.2',
+		'version'   => '1.0.3',
 	);
 }
 function dynamicForms_install($db, $drop=false, $firstInstall=false, $lang='en_us') {
