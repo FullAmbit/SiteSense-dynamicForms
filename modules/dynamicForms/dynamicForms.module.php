@@ -42,7 +42,9 @@ function dynamicForms_buildContent($data,$db) {
 		return;
 	}
 	$data->output['form'] = $form;
-	$data->output['pageTitle']=$data->output['form']['name'];
+	if(!isset($data->output['fauxaction'])){
+		$data->output['pageTitle']=$data->output['form']['name'];
+	}
 	if($form['requireLogin'] == 1 && !isset($data->user['id'])){
 		$data->action['error'] = 'accessDenied';
 		return;
