@@ -243,7 +243,7 @@ function dynamicForms_addQueries() {
 			DELETE FROM !prefix!form_sidebars WHERE sidebar = :sidebar
 		',
 		'getEnabledSidebarsByForm' => '
-			SELECT a.enabled,a.sortOrder,b.* FROM !prefix!form_sidebars a, !prefix!sidebars b WHERE a.form = :formId AND a.sidebar = b.id AND a.enabled = 1 ORDER BY a.sortOrder ASC
+			SELECT a.enabled,a.sortOrder,b.* FROM !prefix!form_sidebars a, !prefix!sidebars!lang! b WHERE a.form = :formId AND a.sidebar = b.id AND a.enabled = 1 ORDER BY a.sortOrder ASC
 		',
 		'countFieldsByForm' => '
 			SELECT COUNT(*) as rowCount FROM !prefix!form_fields!lang! WHERE form = :formId

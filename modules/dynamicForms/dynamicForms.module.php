@@ -53,7 +53,7 @@ function dynamicForms_buildContent($data,$db) {
 	$sidebars = $statement->fetchAll();
 	$data->sidebarList = array();
 	foreach($sidebars as $sidebar){
-		$data->sidebarList[$sidebar['side']][] = $sidebar;
+		$data->sidebarList[strtolower($sidebar['side'])][] = $sidebar;	
 	}
 	
 	// Module List For Hooking
