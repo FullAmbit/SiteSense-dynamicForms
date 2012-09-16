@@ -50,10 +50,9 @@ function dynamicForms_buildContent($data,$db) {
 	// Load Sidebars
 	$statement = $db->prepare('getEnabledSidebarsByForm','dynamicForms');
 	$statement->execute(array(':formId' => $form['id']));
-	$sidebars = $statement->fetchAll();
-	$data->sidebarList = array();
-	foreach($sidebars as $sidebar){
-		$data->sidebarList[strtolower($sidebar['side'])][] = $sidebar;	
+	$sidebars=$statement->fetchAll();
+	if(count($sidebars)>0){
+		$data->sidebarList=$sidebars;
 	}
 	
 	// Module List For Hooking
