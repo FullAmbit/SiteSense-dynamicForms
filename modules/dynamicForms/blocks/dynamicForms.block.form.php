@@ -21,6 +21,7 @@ function form_content($data,$attributes) {
 		echo $data->output['success'];
 	}else{
 		echo htmlspecialchars_decode($data->output['form']['parsedContentBefore']);
+		$data->output['customForm']->action=$_SERVER['REQUEST_URI'];
 		$data->output['customForm']->build();
 		echo htmlspecialchars_decode($data->output['form']['parsedContentAfter']);
 	}
