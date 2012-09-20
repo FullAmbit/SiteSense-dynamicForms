@@ -83,11 +83,16 @@ function dynamicForms_buildContent($data,$db) {
 			'required' => true
 		);
 		// Run The Initial Form Function For This Field's Hook
-		if($field['moduleHook'] !== NULL && isset($moduleList[$field['moduleHook']])){
-			$moduleName = $moduleList[$field['moduleHook']];
-			$target = 'modules/'.$moduleName.'/'.$moduleName.'.dynamicForms.php';
+		if($field['moduleHook'] !== NULL){
+			$hookParts=explode('.',$field['moduleHook'],2);
+			if(count($hookParts)===2){
+				$moduleName=$moduleList[$hookParts[0]];
+				$target='modules/'.$moduleName.'/'.$hookParts[0].'.dynamicForms.'.$hookParts[1].'.php';
+			}elseif(isset($moduleList[$field['moduleHook']])){
+				$moduleName = $moduleList[$field['moduleHook']];
+				$target = 'modules/'.$moduleName.'/'.$moduleName.'.dynamicForms.php';
+			}
 			common_include($target);
-			
 			if(!isset($hookedModules[$field['moduleHook']])){
 				// Field hasn't been hooked yet...therefore the initial form function hasn't been run yet
 				$funcName = $moduleName.'_beforeForm';
@@ -208,9 +213,10 @@ function dynamicForms_buildContent($data,$db) {
 				$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
 				// Is This Field Hooked And Is The Module Enabled?
 				if($field['moduleHook'] !== NULL && isset($moduleList[$field['moduleHook']])){
-					$moduleName = $moduleList[$field['moduleHook']];
+					$hookParts=explode('.',$field['moduleHook'],2);
+					$moduleName=$moduleList[$hookParts[0]];
 					// Load Phrases For The Module..
-					if(!isset($data->phrases[$field['moduleHook']])){
+					if(!isset($data->phrases[$hookParts[0]])){
 						common_loadPhrases($data,$db,$field['moduleHook']);
 					}
 					$shortName = common_generateShortName($field['name'],TRUE);
@@ -244,8 +250,9 @@ function dynamicForms_buildContent($data,$db) {
 				$fieldId = $field['id'];
 				$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
 				// Is This Field Hooked And Is The Module Enabled?
-				if($field['moduleHook'] !== NULL && isset($moduleList[$field['moduleHook']])){
-					$moduleName = $moduleList[$field['moduleHook']];
+				$hookParts=explode('.',$field['moduleHook'],2);
+				if($field['moduleHook'] !== NULL && isset($moduleList[$hookParts[0]])){
+					$moduleName=$moduleList[$hookParts[0]];
 					// Check To See What Function We Can Run
 					$shortName = common_generateShortName($field['name'],TRUE);
 					$fieldFunction = $moduleName.'_save'.$field['name'];
