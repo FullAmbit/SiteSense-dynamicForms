@@ -230,9 +230,14 @@ function dynamicForms_buildContent($data,$db) {
 			$emailText = '';
 			// Do We Have A Row Yet For This New Custom Form Data?
 			if(!isset($rowId)){
-				$newRow = $db->prepare('newRow', 'dynamicForms');
-				$newRow->execute(array(':form' => $form['id']));
-				$rowId = $db->lastInsertId();
+				foreach($rawFields as $field){
+					$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
+					if($fieldValue!==''){ // testing to see if this form entry requires a new row
+						$newRow = $db->prepare('newRow', 'dynamicForms');
+						$newRow->execute(array(':form' => $form['id']));
+						$rowId = $db->lastInsertId();
+						break;
+					}
 			}
 			foreach($rawFields as $field){
 				$fieldId = $field['id'];
@@ -249,23 +254,9 @@ function dynamicForms_buildContent($data,$db) {
 					} else {
 						$generalFunction($data,$db,$field,$shortName,$fieldValue);
 					}					
-				} else {
+				} elseif($fieldValue!=='') {
 					$statement->execute(array('row' => $rowId, 'field' => $fieldId, 'value' => $fieldValue));
 					$emailText .= $field['name'] . ': ' . $data->output['customForm']->sendArray[':'.$fieldId] . "\n";
-					/**
-					// If the user wanted to be subscribed
-					if($field['isNewsletterSignup'] == 1)
-					{
-						echo "WE GOT ONE";
-						// API Call To E-Mail Service
-						$wrap = new CS_REST_Subscribers('c92ba413fde76b3823c1cc9726a72f15', 'bd0fce03de47562ece19f1b2b1106ebd');
-						$result = $wrap->add(array(
-							'EmailAddress' => $data->output['commentForm']->sendArray[':email'],
-							'Name' => $data->output['commentForm']->sendArray[':commenter'],
-							'Resubscribe' => true
-						));
-					}
-					**/
 					$processedFields[$fieldId] = $field;
 				}
 			}
