@@ -231,7 +231,7 @@ function dynamicForms_buildContent($data,$db) {
 			// Do We Have A Row Yet For This New Custom Form Data?
 			if(!isset($rowId)){
 				foreach($rawFields as $field){
-					$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
+					$fieldValue = $data->output['customForm']->sendArray[':'.$field['id']];
 					if($fieldValue!==''){ // testing to see if this form entry requires a new row
 						$newRow = $db->prepare('newRow', 'dynamicForms');
 						$newRow->execute(array(':form' => $form['id']));
