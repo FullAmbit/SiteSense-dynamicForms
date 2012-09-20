@@ -238,6 +238,7 @@ function dynamicForms_buildContent($data,$db) {
 						$rowId = $db->lastInsertId();
 						break;
 					}
+				}
 			}
 			foreach($rawFields as $field){
 				$fieldId = $field['id'];
