@@ -41,7 +41,7 @@ function dynamicForms_buildContent($data,$db) {
 		$data->action['error'] = 'notFound';
 		return;
 	}
-	$data->output['form'] = $form;
+	$data->output['form'] =& $form;
 	if(!isset($data->output['fauxaction'])){
 		$data->output['pageTitle']=$data->output['form']['name'];
 	}
@@ -212,8 +212,8 @@ function dynamicForms_buildContent($data,$db) {
 				$fieldId = $field['id'];
 				$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
 				// Is This Field Hooked And Is The Module Enabled?
-				if($field['moduleHook'] !== NULL && isset($moduleList[$field['moduleHook']])){
-					$hookParts=explode('.',$field['moduleHook'],2);
+				$hookParts=explode('.',$field['moduleHook'],2);
+				if($field['moduleHook'] !== NULL && isset($moduleList[$hookParts[0]])){
 					$moduleName=$moduleList[$hookParts[0]];
 					// Load Phrases For The Module..
 					if(!isset($data->phrases[$hookParts[0]])){
