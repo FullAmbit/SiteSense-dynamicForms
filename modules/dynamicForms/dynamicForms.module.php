@@ -83,7 +83,7 @@ function dynamicForms_buildContent($data,$db) {
 			'required' => true
 		);
 		// Run The Initial Form Function For This Field's Hook
-		if($field['moduleHook'] !== NULL){
+		if($field['moduleHook']){
 			$hookParts=explode('.',$field['moduleHook'],2);
 			if(count($hookParts)===2){
 				$moduleName=$moduleList[$hookParts[0]];
