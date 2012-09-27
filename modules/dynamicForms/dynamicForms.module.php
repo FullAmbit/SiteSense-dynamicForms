@@ -198,9 +198,9 @@ function dynamicForms_buildContent($data,$db) {
 		}
 	}
 	if (isset($url)) {
-		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], '', $data, false,$url);
+		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false,$url);
 	} else {
-		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], '', $data, false);
+		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false);
 	}
 	$data->output['customForm']->submitTitle = $data->output['form']['submitTitle'];
 	if(isset($_POST['fromForm']) && ($_POST['fromForm'] == $data->output['customForm']->fromForm)){
