@@ -56,8 +56,7 @@ function admin_dynamicFormsBuild($data, $db) {
 
 		// Run And Validate All Fields //
 		if ($data->output['fromForm']->validateFromPost()) {
-			switch ($data->output['fromForm']->sendArray[':topLevel']) {
-			case 1:
+			if($data->output['fromForm']->sendArray[':topLevel']){
 				$modifiedShortName='^'.$shortName.'(/.*)?$';
 				$statement=$db->prepare('getUrlRemapByMatch', 'admin_urls');
 				$statement->execute(array(
@@ -80,7 +79,6 @@ function admin_dynamicFormsBuild($data, $db) {
 					$data->output['fromForm']->fields['name']['errorList'][]='<h2>'.$data->phrases['core']['uniqueNameConflictHeading'].'</h2>'.$data->phrases['core']['uniqueNameConflictMessage'];
 					return;
 				}
-				break;
 			}
 			/**
 			 * Are We Saving A Menu Item?
