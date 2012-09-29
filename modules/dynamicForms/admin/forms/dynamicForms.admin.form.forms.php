@@ -43,7 +43,7 @@ $this->fields=array(
 	),
 	'title' => array(
 		'label' => $data->phrases['dynamic-forms']['labelFormsTitle'],
-		'required' => true,
+		'required' => false,
 		'tag' => 'input',
 		'value' => isset($data->output['formItem']['title']) ? $data->output['formItem']['title'] : '',
 		'params' => array(
