@@ -43,7 +43,7 @@ function dynamicForms_buildContent($data,$db) {
 	}
 	$data->output['form'] =& $form;
 	if(!isset($data->output['fauxaction'])){
-		$data->output['pageTitle']=empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title'];
+		$data->output['pageTitle']=$data->output['form']['name'];
 	}
 	if($form['requireLogin'] == 1 && !isset($data->user['id'])){
 		$data->action['error'] = 'accessDenied';
@@ -311,11 +311,11 @@ function dynamicForms_content($data) {
 			break;
 		}
 	}else if(isset($data->output['success'])){
-		theme_contentBoxHeader(empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']);
+		theme_contentBoxHeader($data->output['form']['name']);
 		echo $data->output['success'];
 		theme_contentBoxFooter();
 	}else{
-		theme_contentBoxHeader(empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']);
+		theme_contentBoxHeader($data->output['form']['name']);
 		echo htmlspecialchars_decode($data->output['form']['parsedContentBefore']);
 		$data->output['customForm']->build();
 		echo htmlspecialchars_decode($data->output['form']['parsedContentAfter']);
