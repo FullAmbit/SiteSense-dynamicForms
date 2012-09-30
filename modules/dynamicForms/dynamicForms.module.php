@@ -203,6 +203,8 @@ function dynamicForms_buildContent($data,$db) {
 		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false);
 	}
 	$data->output['customForm']->submitTitle = $data->output['form']['submitTitle'];
+	common_parseDynamicValues($data,$data->output['form']['parsedContentBefore'],$db);
+	common_parseDynamicValues($data,$data->output['form']['parsedContentAfter'],$db);
 	if(isset($_POST['fromForm']) && ($_POST['fromForm'] == $data->output['customForm']->fromForm)){
 		$data->output['customForm']->populateFromPostData();
 		// Validate Form
