@@ -164,6 +164,11 @@ function dynamicForms_buildContent($data,$db) {
 				$f['params'] = array('type' => 'password');
 				$f['required'] = ($field['required'] == '0') ? false : true;
 				break;
+			default:
+				$f['tag'] = 'select';
+				$f['type']= $field['type'];
+				$f['required'] = ($field['required'] == '0') ? false : true;
+				break;
 		}
 		if($field['compareTo'] > 0){
 			$f['compareTo'] = $field['compareTo'];
@@ -197,11 +202,15 @@ function dynamicForms_buildContent($data,$db) {
 			$url = $queryString;
 		}
 	}
-	if (isset($url)) {
-		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false,$url);
-	} else {
-		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false);
+	if(empty($data->output['customFormFields'])){
+		$data->output['customFormFields']=array();
 	}
+	if (isset($url)) {
+		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false,$url,$data->output['customFormFields']);
+	} else {
+		$data->output['customForm'] = new customFormHandler($rawForm, $form['shortName'], $form['title'], $data, false,NULL,$data->output['customFormFields']);
+	}
+	$data->output['formFields']=&$rawFields;
 	$data->output['customForm']->submitTitle = $data->output['form']['submitTitle'];
 	common_parseDynamicValues($data,$data->output['form']['parsedContentBefore'],$db);
 	common_parseDynamicValues($data,$data->output['form']['parsedContentAfter'],$db);
