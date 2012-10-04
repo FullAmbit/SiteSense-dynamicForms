@@ -39,7 +39,6 @@ function admin_dynamicFormsBuild($data, $db) {
 		$data->output['abortMessage']='<h2>'.$data->phrases['core']['invalidID'].'</h2>';
 		return;
 	}
-
 	$form = $data->output['fromForm'] = new formHandler('forms', $data, true);
 	// Editing...So Remove Menu Options
 	unset($form->fields['showOnMenu'],$form->fields['menuTitle']);
@@ -61,7 +60,6 @@ function admin_dynamicFormsBuild($data, $db) {
 		 **/
 		$data->output['fromForm']->sendArray[':shortName'] = $shortName = common_generateShortName($data->output['fromForm']->sendArray[':name']);
 		unset($data->output['fromForm']->fields['name']['cannotEqual']);
-
 		if ($shortName !== $data->output['formItem']['shortName']) {
 			// Check To See If ShortName Exists Anywhere (Across Any Language)
 			if(common_checkUniqueValueAcrossLanguages($data,$db,'pages','id',array('shortName'=>$shortName))){
@@ -71,7 +69,7 @@ function admin_dynamicFormsBuild($data, $db) {
 			}
 			$newShortName=TRUE;
 		}
-		$newShortName=FALSE;
+		//$newShortName=FALSE;
 		// Validate All Form Fields
 		if ($data->output['fromForm']->validateFromPost()) {
 			if (intval($data->output['fromForm']->sendArray[':topLevel'])!==intval($data->output['formItem']['topLevel'])) {
@@ -113,7 +111,8 @@ function admin_dynamicFormsBuild($data, $db) {
 					$modifiedShortName='^'.$shortName.'(/.*)?$';
 					$statement=$db->prepare('getUrlRemapByMatch', 'admin_urls');
 					$statement->execute(array(
-							':match' => $modifiedShortName
+							':match' => $modifiedShortName,
+							':hostname' => '',
 						)
 					);
 					$result=$statement->fetch();
@@ -134,7 +133,6 @@ function admin_dynamicFormsBuild($data, $db) {
 			//----Parse---//
 			if ($data->settings['useBBCode'] == '1') {
 				common_loadPlugin($data, 'bbcode');
-
 				$data->output['fromForm']->sendArray[':parsedContentBefore'] = $data->plugins['bbcode']->parse($data->output['fromForm']->sendArray[':rawContentBefore']);
 				$data->output['fromForm']->sendArray[':parsedContentAfter'] = $data->plugins['bbcode']->parse($data->output['fromForm']->sendArray[':rawContentAfter']);
 				$data->output['fromForm']->sendArray[':parsedSuccessMessage'] = $data->plugins['bbcode']->parse($data->output['fromForm']->sendArray[':rawSuccessMessage']);
@@ -143,13 +141,10 @@ function admin_dynamicFormsBuild($data, $db) {
 				$data->output['fromForm']->sendArray[':parsedContentAfter'] = htmlspecialchars($data->output['fromForm']->sendArray[':rawContentAfter']);
 				$data->output['fromForm']->sendArray[':parsedSuccessMessage'] = htmlspecialchars($data->output['fromForm']->sendArray[':rawSuccessMessage']);
 			}
-			//------------//
 			// Save To DB //
 			$statement = $db->prepare('editForm', 'admin_dynamicForms');
-
 			$data->output['fromForm']->sendArray[':id'] = $formId;
 			$statement->execute($data->output['fromForm']->sendArray);
-			
 			// -- Push The Constant Fields Across Other Languages
 			common_updateAcrossLanguageTables($data,$db,'forms',array('id'=>$formId),array(
 				'requireLogin' => $data->output['fromForm']->sendArray[':requireLogin'],
@@ -158,7 +153,6 @@ function admin_dynamicFormsBuild($data, $db) {
 				'topLevel' =>  $data->output['fromForm']->sendArray[':topLevel'],
 				'api' =>  $data->output['fromForm']->sendArray[':api']
 			));
-
 			if (empty($data->output['secondSidebar'])) {
 				$data->output['savedOkMessage']='
 					<h2>'.$data->phrases['dynamic-forms']['saveFormSuccessHeading'].'</h2>
@@ -172,9 +166,6 @@ function admin_dynamicFormsBuild($data, $db) {
 					</div>';
 			}
 		} else {
-			/*
-				invalid data, so we want to show the form again
-			*/
 			$data->output['secondSidebar']='
 				<h2>'.$data->phrases['core']['formValidationErrorHeading'].'</h2>
 				<p>
@@ -190,4 +181,3 @@ function admin_dynamicFormsShow($data) {
 		theme_buildForm($data->output['fromForm']);
 	}
 }
-?>
