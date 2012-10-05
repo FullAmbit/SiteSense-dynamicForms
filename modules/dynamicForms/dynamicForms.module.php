@@ -303,7 +303,7 @@ function dynamicForms_buildContent($data,$db) {
 					mail($to,$subject,wordwrap($emailText,70),$header);
 				}
 			}
-			$data->output['success'] = htmlspecialchars_decode($form['parsedSuccessMessage']);
+			$data->output['success'] = html_entity_decode($form['parsedSuccessMessage'],ENT_QUOTES,'UTF-8');
 		}
 	}
 }
@@ -327,9 +327,9 @@ function dynamicForms_content($data) {
 		theme_contentBoxFooter();
 	}else{
 		theme_contentBoxHeader((empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']));
-		echo htmlspecialchars_decode($data->output['form']['parsedContentBefore']);
+		echo html_entity_decode($data->output['form']['parsedContentBefore'],ENT_QUOTES,'UTF-8');
 		$data->output['customForm']->build();
-		echo htmlspecialchars_decode($data->output['form']['parsedContentAfter']);
+		echo html_entity_decode($data->output['form']['parsedContentAfter'],ENT_QUOTES,'UTF-8');
 		theme_contentBoxFooter();
 	}
 }

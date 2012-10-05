@@ -137,9 +137,9 @@ function admin_dynamicFormsBuild($data, $db) {
 				$data->output['fromForm']->sendArray[':parsedContentAfter'] = $data->plugins['bbcode']->parse($data->output['fromForm']->sendArray[':rawContentAfter']);
 				$data->output['fromForm']->sendArray[':parsedSuccessMessage'] = $data->plugins['bbcode']->parse($data->output['fromForm']->sendArray[':rawSuccessMessage']);
 			} else {
-				$data->output['fromForm']->sendArray[':parsedContentBefore'] = htmlspecialchars($data->output['fromForm']->sendArray[':rawContentBefore']);
-				$data->output['fromForm']->sendArray[':parsedContentAfter'] = htmlspecialchars($data->output['fromForm']->sendArray[':rawContentAfter']);
-				$data->output['fromForm']->sendArray[':parsedSuccessMessage'] = htmlspecialchars($data->output['fromForm']->sendArray[':rawSuccessMessage']);
+				$data->output['fromForm']->sendArray[':parsedContentBefore'] = htmlentities($data->output['fromForm']->sendArray[':rawContentBefore'],ENT_QUOTES,'UTF-8');
+				$data->output['fromForm']->sendArray[':parsedContentAfter'] = htmlentities($data->output['fromForm']->sendArray[':rawContentAfter'],ENT_QUOTES,'UTF-8');
+				$data->output['fromForm']->sendArray[':parsedSuccessMessage'] = htmlentities($data->output['fromForm']->sendArray[':rawSuccessMessage'],ENT_QUOTES,'UTF-8');
 			}
 			// Save To DB //
 			$statement = $db->prepare('editForm', 'admin_dynamicForms');

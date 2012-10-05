@@ -20,10 +20,9 @@ function form_content($data,$attributes) {
 	}else if(isset($data->output['success'])){
 		echo $data->output['success'];
 	}else{
-		echo htmlspecialchars_decode($data->output['form']['parsedContentBefore']);
+		echo html_entity_decode($data->output['form']['parsedContentBefore'],ENT_QUOTES,'UTF-8');
 		$data->output['customForm']->action=$_SERVER['REQUEST_URI'];
 		$data->output['customForm']->build();
-		echo htmlspecialchars_decode($data->output['form']['parsedContentAfter']);
+		echo html_entity_decode($data->output['form']['parsedContentAfter'],ENT_QUOTES,'UTF-8');
 	}
 }
-?>
