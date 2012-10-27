@@ -164,6 +164,12 @@ function dynamicForms_buildContent($data,$db) {
 				$f['params'] = array('type' => 'password');
 				$f['required'] = ($field['required'] == '0') ? false : true;
 				break;
+			case 'userid':
+				$f['tag'] = 'input';
+				$f['params'] = array('type' => 'hidden');
+				$f['required'] = ($field['required'] == '0') ? false : true;
+				$f['value'] = (isset($data->user['id'])?$data->user['id']:0);
+				break;
 			default:
 				$f['tag'] = 'select';
 				$f['type']= $field['type'];

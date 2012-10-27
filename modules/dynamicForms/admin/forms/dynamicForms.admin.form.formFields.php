@@ -59,7 +59,13 @@ $this->fields=array(
 		'label' => $data->phrases['dynamic-forms']['labelFormFieldsType'],
 		'tag' => 'select',
 		'options' => array(
-			'textbox', 'textarea', 'checkbox', 'select' , 'timezone', 'password'
+			'textbox',
+			'textarea',
+			'checkbox',
+			'select',
+			'timezone',
+			'password',
+			array('text'=>'User ID','value'=>'userid'),
 		),
 		'value' => isset($data->output['field']['type']) ? $data->output['field']['type'] : '',
 		'params' => array(
