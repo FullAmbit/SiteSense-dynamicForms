@@ -105,9 +105,8 @@ function dynamicForms_buildContent($data,$db) {
 				}
 				$hookedModules[$field['moduleHook']] = $moduleName;
 			}
-			
 			// Now Are We Editing This Field?
-			if(isset($data->output['rowId'])){
+			if(isset($data->output['rowId'])||!empty($data->output['editingField'])){
 				// Check To See What Function We Can Run
 				$shortName = common_generateShortName($field['name'],TRUE);
 				$fieldFunction = $moduleName.'_load'.$shortName.'Value';
@@ -321,7 +320,7 @@ function dynamicForms_content($data) {
 				echo "Not Found";
 				break;
 			case 'accessDenied':
-				echo "Access Denied";
+				echo 'Sorry, but you must be logged in to use this form. Please <a href="',$data->linkRoot,'users/login">log in</a> or <a href="',$data->linkRoot,'users/register">register</a>.';
 			break;
 			default:
 				echo $data->output['responseMessage'];
