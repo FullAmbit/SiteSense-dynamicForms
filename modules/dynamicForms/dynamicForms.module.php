@@ -315,17 +315,19 @@ function dynamicForms_buildContent($data,$db) {
 
 function dynamicForms_content($data) {
 	if(isset($data->action['error'])){
+		theme_contentBoxHeader((empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']));
 		switch($data->action['error']){	
 			case 'notFound':
 				echo "Not Found";
 				break;
 			case 'accessDenied':
-				echo 'Sorry, but you must be logged in to use this form. Please <a href="',$data->linkRoot,'users/login">log in</a> or <a href="',$data->linkRoot,'users/register">register</a>.';
+				echo '<p>Sorry, but you must be logged in to use this form. Please <a href="',$data->linkRoot,'users/login">log in</a> or <a href="',$data->linkRoot,'users/register">register</a>.</p>';
 			break;
 			default:
 				echo $data->output['responseMessage'];
 			break;
 		}
+		theme_contentBoxFooter();
 	}else if(isset($data->output['success'])){
 		theme_contentBoxHeader((empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']));
 		echo $data->output['success'];
