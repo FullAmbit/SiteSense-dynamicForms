@@ -149,12 +149,6 @@ $this->fields=array(
 	)
 );
 $hooks=glob('modules/*/*.dynamicForms*php');
-foreach($data->output['moduleShortName'] as $moduleName => $moduleShortName){
-	$this->fields['moduleHook']['options'][] = array(
-		'text' => $moduleName,
-		'value' => $moduleShortName
-	);
-}
 foreach($hooks as $hook){
 	$parts=explode('/',$hook);
 	$hook=explode('.',end($parts));
