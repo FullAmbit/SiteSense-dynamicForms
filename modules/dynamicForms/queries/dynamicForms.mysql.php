@@ -59,13 +59,10 @@ function dynamicForms_addQueries() {
 			SELECT * FROM !prefix!form_rows WHERE form = :form ORDER BY ID DESC
 		',
 		'getValuesByRow' => '
-			SELECT * FROM !prefix!form_rows WHERE row = :row
+			SELECT * FROM !prefix!form_values WHERE row = :row
 		',
 		'getValuesByField' => '
 			SELECT * FROM !prefix!form_values WHERE field = :field
-		',
-		'getValuesByRow' => '
-			SELECT * FROM !prefix!form_values WHERE row = :row AND field = :field
 		',
 		'getValuesByForm' => '
 			SELECT v.* FROM !prefix!form_values v
