@@ -321,7 +321,7 @@ function dynamicForms_content($data) {
 				echo "Not Found";
 				break;
 			case 'accessDenied':
-				echo '<p>Sorry, but you must be logged in to use this form. Please <a href="',$data->linkRoot,'users/login">log in</a> or <a href="',$data->linkRoot,'users/register">register</a>.</p>';
+				echo '<p class="requireLogin">Sorry, but you must be logged in to use this form. Please <a href="',$data->linkRoot,'users/login">log in</a> or <a href="',$data->linkRoot,'users/register">register</a>.</p>';
 			break;
 			default:
 				echo $data->output['responseMessage'];
