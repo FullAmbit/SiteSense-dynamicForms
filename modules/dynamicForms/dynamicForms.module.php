@@ -301,12 +301,8 @@ function dynamicForms_buildContent($data,$db) {
 			// Are We E-Mailing This?
 			if(isset($form['eMail']{0})){
 				$subject = $form['name'] . ' - Form Data';	
-				$from = 'no-reply@fullambit.com';
-				$header='From: '. $from . "\r\n";
 				$recepients = explode(',',$form['eMail']);
-				foreach($recepients as $index => $to){
-					mail($to,$subject,wordwrap($emailText,70),$header);
-				}
+				common_sendMail($data,$db,$recepients,$subject,$emailText);
 			}
 			$data->output['success'] = html_entity_decode($form['parsedSuccessMessage'],ENT_QUOTES,'UTF-8');
 		}
