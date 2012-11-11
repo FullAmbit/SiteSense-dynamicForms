@@ -311,7 +311,7 @@ function dynamicForms_buildContent($data,$db) {
 
 function dynamicForms_content($data) {
 	if(isset($data->action['error'])){
-		theme_contentBoxHeader((empty($data->output['form']['title'])?$data->output['form']['name']:$data->output['form']['title']));
+		theme_contentBoxHeader((empty($data->output['form']['title'])?(empty($data->output['form']['name'])?'Error':$data->output['form']['name']):$data->output['form']['title']));
 		switch($data->action['error']){	
 			case 'notFound':
 				echo "Not Found";
