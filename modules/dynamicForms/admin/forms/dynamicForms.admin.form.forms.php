@@ -89,7 +89,7 @@ $this->fields=array(
 		'label' => $data->phrases['dynamic-forms']['labelFormsAPI'],
 		'tag' => 'select',
 		'required' => false,
-		'value' => (isset($data->output['formItem']['api'])) ? $data->output['formItem']['api'] : 0,
+		'value' => (!empty($data->output['formItem']['api']))?$data->output['formItem']['api']:0,
 		'options' => array(
 			array(
 				'text' => 'No API',

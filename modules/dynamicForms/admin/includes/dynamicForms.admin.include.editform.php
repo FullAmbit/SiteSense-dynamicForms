@@ -49,7 +49,6 @@ function admin_dynamicFormsBuild($data, $db) {
 	foreach ($pluginList as $pluginItem) {
 		$option['text'] = $pluginItem['name'];
 		$option['value'] = $pluginItem['name'];
-
 		$data->output['fromForm']->fields['api']['options'][] = $option;
 	}
 	// Handle Form Submission //
