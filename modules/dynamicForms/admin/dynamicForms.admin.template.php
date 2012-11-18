@@ -154,8 +154,14 @@ function theme_dynamicFormsListTableFoot() {
 function theme_dynamicFormsListFieldsTableHead($data) {
 	echo '
 		<div class="panel buttonList">
-			<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/newField/',$data->output['form']['id'],'">
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/newField/',$data->output['form']['id'],'">
 				',$data->phrases['dynamic-forms']['addField'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/addGroup/',$data->output['form']['id'],'">
+				',$data->phrases['dynamic-forms']['addFieldGroup'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/listFieldGroups/',$data->output['form']['id'],'">
+				',$data->phrases['dynamic-forms']['listFieldGroups'],'
 			</a>
 		</div>
 		<table class="formsList">
@@ -307,4 +313,37 @@ function theme_viewdataTableFoot() {
 	';
 }
 
+function theme_dynamicFormsFieldGroupTable($data){
+	echo '
+	<div class="panel buttonList">
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/addGroup/',$data->output['form']['id'],'">
+				',$data->phrases['dynamic-forms']['addFieldGroup'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/listFields/',$data->output['form']['id'],'">
+				',$data->phrases['dynamic-forms']['returnToFields'],'
+			</a>
+	</div>
+	<table class="formsList">
+		<caption>',$data->phrases['dynamic-forms']['fieldGroups'],'</caption>
+		<thead>
+			<tr>
+				<th>',$data->phrases['dynamic-forms']['labelGroupName'],'</th>
+				<th>',$data->phrases['dynamic-forms']['labelGroupLegend'],'</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>';
+	foreach($data->output['fieldGroups'] as $group){
+		echo '<tr>
+			<td>',$group['groupName'],'</td>
+			<td>',$group['groupLegend'],'</td>
+			<td class="buttonList">
+				<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/editFieldGroup/',$group['id'],'">',$data->phrases['dynamic-forms']['editFieldGroup'],'</a>
+				<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/deleteFieldGroup/',$group['id'],'">',$data->phrases['dynamic-forms']['deleteFieldGroup'],'</a>
+			</td>
+		</tr>';
+	}
+	echo '</tbody>
+	</table>';
+}
 ?>

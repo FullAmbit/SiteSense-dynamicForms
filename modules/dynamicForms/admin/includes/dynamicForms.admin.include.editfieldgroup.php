@@ -36,31 +36,16 @@ function admin_dynamicFormsBuild($data,$db) {
 		return;
 	}
 	$data->action[3] = intval($data->action[3]);
-	$statement = $db->prepare('getFieldById','admin_dynamicForms');
+	$statement = $db->prepare('getFieldGroupById','admin_dynamicForms');
 	$statement->execute(array(':id' => $data->action[3]));
-	$data->output['field'] = $field = $statement->fetch();
-	if($field === false){
+	$data->output['group'] = $group = $statement->fetch();
+	if($group === false){
 		$data->output['abort'] = true;
 		$data->output['abortMessage']='<h2>'.$data->phrases['core']['invalidID'].'</h2>';
 		return;
 	}
-	$data->output['fieldList'][]=array(
-		'text'  => 'Do Not Compare',
-		'value' => '0'
-	);
-	$statement = $db->prepare('getFieldsByForm','admin_dynamicForms');
-	$statement->execute(array(':form' => $field['form']));
-	$fieldList = $statement->fetchAll();
-	foreach($fieldList as $value) {
-		if($value['id']!=$data->action[3]) {
-			$data->output['fieldList'][]=array(
-				'text'  => $value['name'],
-				'value' => $value['id']
-			);
-		}
-	}
 	$statement = $db->prepare('getFormById','admin_dynamicForms');
-	$statement->execute(array(':id' => $field['form']));
+	$statement->execute(array(':id' => $group['formId']));
 	$dbform = $statement->fetch();
 	if($dbform === false){
 		$data->output['abort'] = true;
@@ -68,35 +53,13 @@ function admin_dynamicFormsBuild($data,$db) {
 		return;
 	}
 	$data->output['form'] = $dbform;
-	$statement = $db->prepare('getFieldGroupsByFormId','admin_dynamicForms');
-	$statement->execute(array(':formId' => $field['form']));
-	$data->output['fieldGroups']=$statement->fetchAll(PDO::FETCH_ASSOC);
-	$form = $data->output['fromForm'] = new formHandler('formFields',$data,true);
-	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm))
-	{
-		$form->caption = 'New Custom Form';
+	$form = $data->output['fromForm'] = new formHandler('fieldGroups',$data,true);
+	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)){
 		$form->populateFromPostData();
 		if ($form->validateFromPost()) {
-			if($form->sendArray[':isEmail'] && $form->sendArray[':type']!=='textbox') {
-				$form->fields['isEmail']['error']=true;
-				$form->fields['isEmail']['errorList'][]='Can only validate emails for textboxes.';
-				return;
-			}
-			$form->sendArray[':id'] = $field['id'];
-			$statement = $db->prepare('editField','admin_dynamicForms');
+			$form->sendArray[':id'] = $group['id'];
+			$statement = $db->prepare('editFieldGroup','admin_dynamicForms');
 			$statement->execute($form->sendArray) or die(var_dump($statement->errorInfo()));
-			
-			// -- Push The Constant Fields Across Other Languages
-			common_updateAcrossLanguageTables($data,$db,'form_fields',array('id'=>$field['id']),array(
-				'type' => $data->output['fromForm']->sendArray[':type'],
-				'apiFieldToMapTo' => $form->sendArray[':apiFieldToMapTo'],
-				'required' =>  $form->sendArray[':required'],
-				'enabled' =>  $form->sendArray[':enabled'],
-				'isEmail' =>  $form->sendArray[':isEmail'],
-				'compareTo' =>  $form->sendArray[':compareTo'],
-				'moduleHook' =>  $form->sendArray[':moduleHook'],
-			));
-			
 			if (empty($data->output['secondSidebar'])) {
 				$data->output['savedOkMessage']='
 					<h2>'.$data->phrases['dynamic-forms']['saveFieldSuccessHeading'].'</h2>
@@ -110,9 +73,6 @@ function admin_dynamicFormsBuild($data,$db) {
 					</div>';
 			}
 		} else {
-			/*
-				invalid data, so we want to show the form again
-			*/
 			$data->output['secondSidebar']='
 				<h2>'.$data->phrases['core']['formValidationErrorHeading'].'</h2>
 				<p>

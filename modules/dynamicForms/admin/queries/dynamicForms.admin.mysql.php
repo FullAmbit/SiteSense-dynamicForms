@@ -108,6 +108,12 @@ function admin_dynamicForms_addQueries() {
 			VALUES
 			(:form,:name,:type,:description,:enabled,:required,:moduleHook,:apiFieldToMapTo,:sortOrder,:isEmail,:compareTo)
 		',
+		'newGroupedField' => '
+			INSERT INTO !prefix!form_fields!lang!
+			(form, name, type, description, enabled, required, moduleHook, apiFieldToMapTo, sortOrder, isEmail, compareTo, fieldGroup)
+			VALUES
+			(:form,:name,:type,:description,:enabled,:required,:moduleHook,:apiFieldToMapTo,:sortOrder,:isEmail,:compareTo,:group)
+		',
 		'newRow' => '
 			INSERT INTO !prefix!form_rows (form) VALUES (:form)
 		',
@@ -143,7 +149,8 @@ function admin_dynamicForms_addQueries() {
 			apiFieldToMapTo = :apiFieldToMapTo,
 			moduleHook      = :moduleHook,
 			isEmail         = :isEmail,
-			compareTo       = :compareTo
+			compareTo       = :compareTo,
+			fieldGroup      = :group
 			WHERE id        = :id
 		',
 		'editValue' => '
@@ -298,6 +305,27 @@ function admin_dynamicForms_addQueries() {
 			UPDATE !prefix!form_fields!lang!
 			SET sortOrder = sortOrder - 1
 			WHERE sortOrder > :sortOrder AND form = :formId
+		',
+		'newFieldGroup' => '
+			INSERT INTO !prefix!form_fields_groups!lang!
+			       ( groupName, groupLegend, formId)
+			VALUES (:groupName,:groupLegend,:formId)
+		',
+		'editFieldGroup' => '
+			UPDATE !prefix!form_fields_groups!lang!
+			SET groupName = :groupName, groupLegend = :groupLegend
+			WHERE id = :id
+			LIMIT 1
+		',
+		'getFieldGroupById' => '
+			SELECT * FROM !prefix!form_fields_groups!lang!
+			WHERE id = :id
+			LIMIT 1
+		',
+		'getFieldGroupsByFormId' => '
+			SELECT * FROM !prefix!form_fields_groups!lang!
+			WHERE formId = :formId
+			ORDER BY groupName ASC
 		',
 	);
 }

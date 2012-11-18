@@ -23,7 +23,6 @@
 * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
 common_include('libraries/forms.php');
-
 function admin_dynamicFormsBuild($data,$db) {
 	//permission check for forms edit
 	if(!checkPermission('edit','dynamicForms',$data)) {
@@ -45,37 +44,12 @@ function admin_dynamicFormsBuild($data,$db) {
 		$data->output['abortMessage']='<h2>'.$data->phrases['core']['invalidID'].'</h2>';
 		return;
 	}
-	$data->output['form'] = $dbform;
-	$data->output['fieldList'][]=array(
-		'text'  => 'Do Not Compare',
-		'value' => '0'
-	);
-	$statement = $db->prepare('getFieldsByForm','admin_dynamicForms');
-	$statement->execute(array(':form' => $data->action[3]));
-	$fieldList = $statement->fetchAll();
-	foreach($fieldList as $field) {
-		$data->output['fieldList'][]=array(
-			'text'  => $field['name'],
-			'value' => $field['id']
-		);
-	}
-	$statement = $db->prepare('getFieldGroupsByFormId','admin_dynamicForms');
-	$statement->execute(array(':formId' => $field['form']));
-	$data->output['fieldGroups']=$statement->fetchAll(PDO::FETCH_ASSOC);
-	$form = $data->output['fromForm'] = new formHandler('formFields',$data,true);
+	$form = $data->output['fromForm'] = new formHandler('fieldGroups',$data,true);
 	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)) {
-		$form->caption = 'New Form Field';
 		$form->populateFromPostData();
 		if ($form->validateFromPost()) {
-			if($form->sendArray[':isEmail'] && $form->sendArray[':type']!=='textbox') {
-				$form->fields['isEmail']['error']=true;
-				$form->fields['isEmail']['errorList'][]='Can only validate emails for textboxes.';
-				return;
-			}
-			$form->sendArray[':form'] = $dbform['id'];
-			
-            $form->sendArray[':sortOrder']=admin_sortOrder_new($data,$db,'form_fields','sortOrder','form',$formId,TRUE);
-			$statement = $db->prepare('newGroupedField','admin_dynamicForms');
+			$form->sendArray[':formId'] = $dbform['id'];
+			$statement = $db->prepare('newFieldGroup','admin_dynamicForms');
 			$result = $statement->execute($form->sendArray);
 			$fieldId = $db->lastInsertId();
 			if(!$result) {
@@ -83,30 +57,19 @@ function admin_dynamicFormsBuild($data,$db) {
 				$data->output['abortMessage'] = '<h2>'.$data->phrases['core']['databaseErrorHeading'].'</h2>'.$data->phrases['core']['databaseErrorMessage'];
 				return;
 			}
-			//--Push Form To All Other Languages
-			common_populateLanguageTables($data,$db,'form_fields','id',$fieldId);
-			
+			common_populateLanguageTables($data,$db,'form_fields_groups','id',$fieldId);
 			if (empty($data->output['secondSidebar'])) {
 				$data->output['savedOkMessage']='
 					<h2>'.$data->phrases['dynamic-forms']['saveFieldSuccessHeading'].'</h2>
 					<div class="panel buttonList">
-						<a href="'.$data->linkRoot.'admin/'.$data->output['moduleShortName']['dynamicForms'].'/newField/' . $data->output['form']['id'] . '">
+						<a href="'.$data->linkRoot.'admin/'.$data->output['moduleShortName']['dynamicForms'].'/newField/'.$dbform['id'].'">
 							'.$data->phrases['dynamic-forms']['addField'].'
 						</a>
-						<a href="'.$data->linkRoot.'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listFields/' . $data->output['form']['id'] . '">
+						<a href="'.$data->linkRoot.'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listFields/'.$dbform['id'].'">
 							'.$data->phrases['dynamic-forms']['returnToFields'].'
 						</a>
 					</div>';
 			}
-		} else {
-			/*
-				invalid data, so we want to show the form again
-			*/
-			$data->output['secondSidebar']='
-				<h2>'.$data->phrases['core']['formValidationErrorHeading'].'</h2>
-				<p>
-					'.$data->phrases['core']['formValidationErrorMessage'].'
-				</p>';
 		}
 	}
 }
@@ -117,4 +80,3 @@ function admin_dynamicFormsShow($data) {
 		theme_buildForm($data->output['fromForm']);
 	}
 }
-?>

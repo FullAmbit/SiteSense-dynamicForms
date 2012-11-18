@@ -82,7 +82,19 @@ function languages_dynamicForms_admin_en_us(){
 		'saveFormSuccessHeading'              => 'Form Saved Successfully',
 		'returnToOptions'                     => 'Return To Options',
 		'saveOptionSuccessHeading'            => 'Option Saved Successfully',
-		'saveFieldSuccessHeading'             => 'Field Saved Successfully'
+		'saveFieldSuccessHeading'             => 'Field Saved Successfully',
+		'captionFormsFieldGroups'             => 'Add/Edit Field Group',
+		'submitSaveGroup'                     => 'Save Field Group',
+		'labelGroupName'                      => 'Group Name',
+		'labelGroupLegend'                    => 'Group Legend',
+		'descriptionGroupName'                => 'The name of the group, for reference in the admin control panel.',
+		'descriptionGroupLegend'              => 'The Group Legend, to be displayed on the frontend.',
+		'addFieldGroup'                       => 'Add Field Group',
+		'fieldGroups'                         => 'Field Groups',
+		'editFieldGroup'                      => 'Edit Field Group',
+		'deleteFieldGroup'                    => 'Delete Field Group',
+		'listFieldGroups'                     => 'List Field Groups',
+		'fieldGroup'                          => 'Field Group',
 	);
 }
 ?>

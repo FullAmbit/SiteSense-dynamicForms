@@ -146,7 +146,18 @@ $this->fields=array(
 				'.$data->phrases['dynamic-forms']['descriptionFormFieldsModuleHook'].'
 			</p>
 		'
-	)
+	),
+	'group' => array(
+		'label' => $data->phrases['dynamic-forms']['fieldGroup'],
+		'tag' => 'select',
+		'options' => array(
+			array(
+				'value' => 0,
+				'text' => 'No Group'
+			)
+		),
+		'value' => isset($data->output['field']['fieldGroup']) ? $data->output['field']['fieldGroup'] : '',
+	),
 );
 $hooks=glob('modules/*/*.dynamicForms*php');
 foreach($hooks as $hook){
@@ -166,4 +177,10 @@ foreach($hooks as $hook){
 			'value' => $hook[0].'.'.$hook[2]
 		);
 	}
+}
+foreach($data->output['fieldGroups'] as $fieldGroup){
+	$this->fields['group']['options'][]=array(
+		'value' => $fieldGroup['id'],
+		'text'  => $fieldGroup['groupName'],
+	);
 }
