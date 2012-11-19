@@ -60,7 +60,7 @@ function admin_dynamicFormsBuild($data,$db) {
 		);
 	}
 	$statement = $db->prepare('getFieldGroupsByFormId','admin_dynamicForms');
-	$statement->execute(array(':formId' => $field['form']));
+	$statement->execute(array(':formId' => $data->action[3]));
 	$data->output['fieldGroups']=$statement->fetchAll(PDO::FETCH_ASSOC);
 	$form = $data->output['fromForm'] = new formHandler('formFields',$data,true);
 	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)) {
