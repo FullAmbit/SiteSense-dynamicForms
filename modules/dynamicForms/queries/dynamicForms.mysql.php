@@ -45,6 +45,9 @@ function dynamicForms_addQueries() {
 		'getFieldsByForm' => '
 			SELECT * FROM !prefix!form_fields!lang! WHERE form = :form AND enabled = 1 ORDER BY sortOrder ASC
 		',
+		'getFieldGroupsByForm' => '
+			SELECT * FROM !prefix!form_fields_groups WHERE formId = :formId
+		',
 		'getOptionsByFieldForForm' => '
 			SELECT text,value FROM !prefix!form_fields_options!lang! WHERE formId = :formId AND fieldId = :fieldId ORDER BY sortOrder ASC
 		',

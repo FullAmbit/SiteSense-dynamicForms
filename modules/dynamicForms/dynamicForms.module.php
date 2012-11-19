@@ -57,6 +57,14 @@ function dynamicForms_buildContent($data,$db) {
 		$data->sidebarList=$sidebars;
 	}
 	
+	// Load field groups
+	$statement=$db->prepare('getFieldGroupsByForm','dynamicForms');
+	$statement->execute(array(':formId' => $form['id']));
+	$fieldGroups=array();
+	while($fieldGroup=$statement->fetch(PDO::FETCH_ASSOC)){
+		$fieldGroups[$fieldGroup['id']]=$fieldGroup;
+	}
+	
 	// Module List For Hooking
 	$moduleList = array_flip($data->output['moduleShortName']);
 	$hookedModules = array();
@@ -82,6 +90,9 @@ function dynamicForms_buildContent($data,$db) {
 			'label' => $field['name'],
 			'required' => true
 		);
+		if(!empty($fieldGroups[$field['fieldGroup']])){
+			$f['group']=$fieldGroups[$field['fieldGroup']]['groupLegend'];
+		}
 		// Run The Initial Form Function For This Field's Hook
 		if($field['moduleHook']){
 			$hookParts=explode('.',$field['moduleHook'],2);
