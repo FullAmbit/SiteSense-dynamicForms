@@ -136,6 +136,7 @@ function theme_dynamicFormsListTableRow($data,$form,$count) {
 				<td class="buttonList">
 					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/editForm/', $form['id'], '">',$data->phrases['core']['actionEdit'],'</a>
 					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listFields/', $form['id'], '">',$data->phrases['dynamic-forms']['manageFields'],'</a>
+					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listFieldGroups/', $form['id'], '">',$data->phrases['dynamic-forms']['listFieldGroups'],'</a>
 					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/viewData/', $form['id'], '">',$data->phrases['dynamic-forms']['viewData'],'</a>
 					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/sidebars/',$form['id'],'" title="Sidebars">',$data->phrases['core']['sidebars'],'</a>
 					<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/delete/', $form['id'], '">',$data->phrases['core']['actionDelete'],'</a>
