@@ -153,7 +153,7 @@ $this->fields=array(
 		'options' => array(
 			array(
 				'value' => 0,
-				'text' => 'No Group'
+				'text' => $data->phrases['dynamic-forms']['noGroup']
 			)
 		),
 		'value' => isset($data->output['field']['fieldGroup']) ? $data->output['field']['fieldGroup'] : '',

@@ -44,7 +44,13 @@ function admin_dynamicFormsBuild($data,$db){
 		return;
 	}
 	$data->output['form'] = $form;
-	
+	// Load field groups
+	$statement=$db->prepare('getFieldGroupsByForm','dynamicForms');
+	$statement->execute(array(':formId' => $form['id']));
+	$data->output['fieldGroups']=array();
+	while($fieldGroup=$statement->fetch(PDO::FETCH_ASSOC)){
+		$data->output['fieldGroups'][$fieldGroup['id']]=$fieldGroup;
+	}
 	//--Any Changes To Be Made?--//
 	switch($data->action[4])
 	{

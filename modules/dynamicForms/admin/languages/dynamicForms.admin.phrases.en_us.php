@@ -95,6 +95,7 @@ function languages_dynamicForms_admin_en_us(){
 		'deleteFieldGroup'                    => 'Delete Field Group',
 		'listFieldGroups'                     => 'List Field Groups',
 		'fieldGroup'                          => 'Field Group',
+		'noGroup'                             => 'No Group',
 	);
 }
 ?>

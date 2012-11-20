@@ -165,11 +165,14 @@ function theme_dynamicFormsListFieldsTableHead($data) {
 			</a>
 		</div>
 		<table class="formsList">
-			<tr>
-				<th>',$data->phrases['core']['name'],'</th>
-				<th>',$data->phrases['dynamic-forms']['type'],'</th>
-				<th>',$data->phrases['core']['controls'],'</th>
-			</tr>
+			<thead>
+				<tr>
+					<th>',$data->phrases['core']['name'],'</th>
+					<th>',$data->phrases['dynamic-forms']['type'],'</th>
+					<th>',$data->phrases['dynamic-forms']['fieldGroup'],'</th>
+					<th>',$data->phrases['core']['controls'],'</th>
+				</tr>
+			</thead>
 			';
 }
 
@@ -178,6 +181,7 @@ function theme_dynamicFormsListFieldsTableRow($data,$field,$count) {
 		<tr class="',($count%2 == 0 ? 'even' : 'odd'),'">
 			<td>', $field['name'], '</td>
 			<td>', $field['type'], '</td>
+			<td>',(!empty($data->output['fieldGroups'][$field['fieldGroup']])?$data->output['fieldGroups'][$field['fieldGroup']]['groupName']:'<em>'.$data->phrases['dynamic-forms']['noGroup'].'</em>'),'
 			<td class="buttonList">';
 	if($field['type'] == 'select'){
 		echo '
