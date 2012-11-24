@@ -158,6 +158,15 @@ $this->fields=array(
 		),
 		'value' => isset($data->output['field']['fieldGroup']) ? $data->output['field']['fieldGroup'] : '',
 	),
+	'displayStyle' => array(
+		'label' => $data->phrases['dynamic-forms']['labelDisplayStyle'],
+		'tag' => 'select',
+		'options' => array(
+			array('value' => 0,'text' => $data->phrases['dynamic-forms']['labelDisplayStyleBlock']),
+			array('value' => 1,'text' => $data->phrases['dynamic-forms']['labelDisplayStyleInline']),
+		),
+		'value' => isset($data->output['field']['displayStyle']) ? $data->output['field']['displayStyle'] : '',
+	),
 );
 $hooks=glob('modules/*/*.dynamicForms*php');
 foreach($hooks as $hook){

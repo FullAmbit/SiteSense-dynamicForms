@@ -148,6 +148,9 @@ function dynamicForms_buildContent($data,$db) {
 				$f['params'] = array('type' => 'checkbox');
 				$f['required'] = ($field['required'] == '0') ? false : true;
 				$f['validate'] = ($field['isEmail'] == '1') ? 'eMail' : '';
+				if($field['displayStyle']=='1'){
+					$f['inline']=TRUE;
+				}
 				break;
 			case 'select':
 				$f['tag'] = 'select';

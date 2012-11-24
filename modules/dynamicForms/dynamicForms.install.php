@@ -63,7 +63,8 @@ function dynamicForms_install($db, $drop=false, $firstInstall=false, $lang='en_u
 			'moduleHook'           => 'VARCHAR(127) DEFAULT NULL',
 			'sortOrder'            => SQR_sortOrder.' DEFAULT \'1\'',
 			'isEmail'              => SQR_boolean.' DEFAULT \'0\'',
-			'compareTo'            => SQR_ID
+			'compareTo'            => SQR_ID,
+			'displayStyle'         => SQR_ID.' DEFAULT \'0\'', // currently used for inline, ID so that it can be used for other display styles
 		),
 		'form_fields_options' => array(
 			'id'                   => SQR_IDKey,

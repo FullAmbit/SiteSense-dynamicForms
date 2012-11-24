@@ -107,12 +107,12 @@ function admin_dynamicForms_addQueries() {
 			(form, name, type, description, enabled, required, moduleHook, apiFieldToMapTo, sortOrder, isEmail, compareTo)
 			VALUES
 			(:form,:name,:type,:description,:enabled,:required,:moduleHook,:apiFieldToMapTo,:sortOrder,:isEmail,:compareTo)
-		',
+		', // 'newField' is for legacy module installers, do not modify
 		'newGroupedField' => '
 			INSERT INTO !prefix!form_fields!lang!
-			(form, name, type, description, enabled, required, moduleHook, apiFieldToMapTo, sortOrder, isEmail, compareTo, fieldGroup)
+			(form, name, type, description, enabled, required, moduleHook, apiFieldToMapTo, sortOrder, isEmail, compareTo, fieldGroup, displayStyle)
 			VALUES
-			(:form,:name,:type,:description,:enabled,:required,:moduleHook,:apiFieldToMapTo,:sortOrder,:isEmail,:compareTo,:group)
+			(:form,:name,:type,:description,:enabled,:required,:moduleHook,:apiFieldToMapTo,:sortOrder,:isEmail,:compareTo,:group    ,:displayStyle)
 		',
 		'newRow' => '
 			INSERT INTO !prefix!form_rows (form) VALUES (:form)
@@ -150,7 +150,8 @@ function admin_dynamicForms_addQueries() {
 			moduleHook      = :moduleHook,
 			isEmail         = :isEmail,
 			compareTo       = :compareTo,
-			fieldGroup      = :group
+			fieldGroup      = :group,
+			displayStyle    = :displayStyle
 			WHERE id        = :id
 		',
 		'editValue' => '
