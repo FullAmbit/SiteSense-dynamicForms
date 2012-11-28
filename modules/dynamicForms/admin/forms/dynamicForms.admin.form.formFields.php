@@ -91,28 +91,25 @@ $this->fields=array(
 	'required' => array(
 		'label' => $data->phrases['dynamic-forms']['labelFormFieldsRequired'],
 		'tag' => 'input',
-		'value' => '1',
-		'checked' => (isset($data->output['field']['required']) && $data->output['field']['required'] == '0') ? '' : 'checked',
 		'params' => array(
 			'type' => 'checkbox',
+			'checked' => !empty($data->output['field']['required'])?'checked':'',
 		)
 	),
 	'enabled' => array(
 		'label' => $data->phrases['dynamic-forms']['labelFormFieldsEnabled'],
 		'tag' => 'input',
-		'value' => 1,
-		'checked' => (isset($data->output['field']['enabled']) && $data->output['field']['enabled'] == '0') ? '' : 'checked',
 		'params' => array(
 			'type' => 'checkbox',
+			'checked' => !empty($data->output['field']['enabled'])?'checked':'',
 		)
 	),
 	'isEmail' => array(
 		'label' => $data->phrases['dynamic-forms']['labelFormFieldsIsEmail'],
 		'tag' => 'input',
-		'value' => 1,
 		'params' => array(
 			'type' => 'checkbox',
-			'checked' => (isset($data->output['field']['isEmail']) && $data->output['field']['isEmail'] == '1') ? 'checked' : '',
+			'checked' => !empty($data->output['field']['isEmail'])?'checked':'',
 		)
 	),
 	'compareTo' => array(
@@ -168,6 +165,11 @@ $this->fields=array(
 		'value' => isset($data->output['field']['displayStyle']) ? $data->output['field']['displayStyle'] : '',
 	),
 );
+foreach($this->fields as $fieldName=>$field){
+	if(empty($field['params']['checked'])){
+		unset($this->fields[$fieldName]['params']['checked']);
+	}
+}
 $hooks=glob('modules/*/*.dynamicForms*php');
 foreach($hooks as $hook){
 	$parts=explode('/',$hook);
