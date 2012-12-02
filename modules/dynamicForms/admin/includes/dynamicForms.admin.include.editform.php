@@ -30,6 +30,7 @@ function admin_dynamicFormsBuild($data, $db) {
         $data->output['abortMessage']='<h2>'.$data->phrases['core']['accessDeniedHeading'].'</h2>'.$data->phrases['core']['accessDeniedMessage'];
 		return;
 	}
+	$newShortName=FALSE;
 	// Check If Form Exists //
 	$formId = $data->action[3];
 	$check = $db->prepare('getFormById', 'admin_dynamicForms');
@@ -61,14 +62,13 @@ function admin_dynamicFormsBuild($data, $db) {
 		unset($data->output['fromForm']->fields['name']['cannotEqual']);
 		if ($shortName !== $data->output['formItem']['shortName']) {
 			// Check To See If ShortName Exists Anywhere (Across Any Language)
-			if(common_checkUniqueValueAcrossLanguages($data,$db,'pages','id',array('shortName'=>$shortName))){
+			if(common_checkUniqueValueAcrossLanguages($data,$db,'forms','id',array('shortName'=>$shortName))){
 				$data->output['fromForm']->fields['name']['error']=true;
 				$data->output['fromForm']->fields['name']['errorList'][]='<h2>'.$data->phrases['core']['uniqueNameConflictHeading'].'</h2>'.$data->phrases['core']['uniqueNameConflictMessage'];
 	            return;
 			}
 			$newShortName=TRUE;
 		}
-		//$newShortName=FALSE;
 		// Validate All Form Fields
 		if ($data->output['fromForm']->validateFromPost()) {
 			if (intval($data->output['fromForm']->sendArray[':topLevel'])!==intval($data->output['formItem']['topLevel'])) {
