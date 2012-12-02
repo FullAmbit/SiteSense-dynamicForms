@@ -70,7 +70,7 @@ function admin_dynamicFormsShow($data){
 	$data->output['priorGroup']=NULL;
 	$fieldKeys=array_keys($data->output['fields']);
 	$priorGroup=NULL;
-	if(empty($data->output['fieldGroups'][$data->output['fields'][$fieldKeys[0]]['fieldGroup']])){
+	if(empty($fieldKeys)||empty($data->output['fieldGroups'][$data->output['fields'][$fieldKeys[0]]['fieldGroup']])){
 		echo '<tr class="level0"><td colspan="5">',$data->phrases['dynamic-forms']['noGroup'],'</td></tr>';
 	}
 	foreach($data->output['fields'] as $field){
