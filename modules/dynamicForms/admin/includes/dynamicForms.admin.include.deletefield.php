@@ -40,13 +40,6 @@ function admin_dynamicFormsBuild($data,$db)
 		$data->output['abortMessage'] = '<h2>The ID does not exist in database</h2>';
 		return;
 	}
-	// Check for User Permissions
-	if (!checkPermission('canDeleteFormField','dynamicForms',$data))
-	{
-		$data->output['rejectError']='Insufficient User Permissions';
-		$data->output['rejectText']='You do not have sufficient access to perform this action.';
-		return;
-	}
 	// Get Form Information
 	$statement = $db->prepare('getFormById','admin_dynamicForms');
 	$statement->execute(array(':id' => $data->output['fieldItem']['form']));
