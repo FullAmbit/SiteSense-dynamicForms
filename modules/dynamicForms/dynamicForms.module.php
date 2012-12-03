@@ -268,7 +268,7 @@ function dynamicForms_buildContent($data,$db) {
 			if(!isset($rowId)){
 				foreach($rawFields as $field){
 					$fieldValue = $data->output['customForm']->sendArray[':'.$field['id']];
-					if($fieldValue!==''){ // testing to see if this form entry requires a new row
+					if($fieldValue!==''&&!($field['moduleHook'] !== NULL && isset($moduleList[$hookParts[0]]))){ // testing to see if this form entry requires a new row
 						$newRow = $db->prepare('newRow', 'dynamicForms');
 						$newRow->execute(array(':form' => $form['id']));
 						$rowId = $db->lastInsertId();
