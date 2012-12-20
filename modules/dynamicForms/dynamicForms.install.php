@@ -64,7 +64,7 @@ function dynamicForms_install($db, $drop=false, $firstInstall=false, $lang='en_u
 			'sortOrder'            => SQR_sortOrder.' DEFAULT \'1\'',
 			'isEmail'              => SQR_boolean.' DEFAULT \'0\'',
 			'compareTo'            => SQR_ID,
-			'displayStyle'         => SQR_ID.' DEFAULT \'0\'', // currently used for inline, ID so that it can be used for other display styles
+			'displayStyle'         => SQR_ID.' DEFAULT \'0\'' // currently used for inline, ID so that it can be used for other display styles
 		),
 		'form_fields_options' => array(
 			'id'                   => SQR_IDKey,
@@ -72,13 +72,19 @@ function dynamicForms_install($db, $drop=false, $firstInstall=false, $lang='en_u
 			'fieldId'              => SQR_ID,
 			'text'                 => 'VARCHAR(127) NOT NULL DEFAULT ""',
 			'value'                => 'VARCHAR(127) NOT NULL DEFAULT ""',
-			'sortOrder'            => SQR_sortOrder.' DEFAULT "1"',
+			'sortOrder'            => SQR_sortOrder.' DEFAULT "1"'
 		),
 		'form_fields_groups' => array(
 			'id'                   => SQR_IDKey,
 			'formId'               => SQR_ID,
 			'groupName'            => SQR_title,
-			'groupLegend'          => SQR_title,
+			'groupLegend'          => SQR_title
+		),
+		'form_fields_params' => array(
+			'form'                 => SQR_ID,
+			'field'                => SQR_ID,
+			'param'                => 'VARCHAR(31) NOT NULL',
+			'value'                => 'VARCHAR(127) NOT NULL'
 		),
 		'form_sidebars' => array(
 			'id'                   => SQR_IDKey,
