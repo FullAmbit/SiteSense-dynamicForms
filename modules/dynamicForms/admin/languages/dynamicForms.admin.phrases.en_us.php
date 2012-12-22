@@ -99,6 +99,14 @@ function languages_dynamicForms_admin_en_us(){
 		'listFieldGroups'                     => 'List Field Groups',
 		'fieldGroup'                          => 'Field Group',
 		'noGroup'                             => 'No Group',
+		'parameterFormFieldLabel'             => 'Parameter',
+		'formFieldParamsLabel'                => 'Parameters',
+		'valueFormFieldLabel'                 => 'Value',
+		'paramAlreadyExists'                  => 'Parameter Already Exists',
+		'paramAlreadyExistsMessage'           => 'This parameter already exists for this form field. Please try modifying the existing record.',
+		'addFieldParam'                       => 'Add Parameter',
+		'fieldParamSaveSuccessMessage'        => 'Field paramater saved successfully.',
+		'modifyFieldParam'                    => 'Modify Parameter'
 	);
 }
 ?>

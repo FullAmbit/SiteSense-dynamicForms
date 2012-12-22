@@ -30,7 +30,6 @@ function theme_dynamicFormsDeleteReject($data,$aRoot) {
 			<a href="'.$aRoot.'" title="Return To Forms">',$data->phrases['dynamic-forms']['returnToForms'],'</a>
 		</div>';
 }
-
 function theme_dynamicFormsDeleteCancelled($data,$aRoot) {
 	echo '
 		<h2>',$data->phrases['dynamic-forms']['deleteFormCancelledHeading'],'</h2>
@@ -39,7 +38,6 @@ function theme_dynamicFormsDeleteCancelled($data,$aRoot) {
 			<a href="',$aRoot,'list">',$data->phrases['core']['linkSkipWait'],'</a>
 		</p>';
 }
-
 function theme_dynamicFormsDeleteDeleted($data,$aRoot) {
 	echo $data->phrases['dynamic-forms']['deleteFormSuccessMessage'],'
 		
@@ -47,7 +45,6 @@ function theme_dynamicFormsDeleteDeleted($data,$aRoot) {
 			<a href="'.$aRoot.'" title="Return To Forms">',$data->phrases['dynamic-forms']['returnToForms'],'</a>
 		</div>';
 }
-
 function theme_dynamicFormsDeleteDefault($data,$aRoot) {
 	echo '
 		<form action="'.$aRoot.'delete/'.$data->action[3].'" method="post" class="verifyForm">
@@ -59,16 +56,13 @@ function theme_dynamicFormsDeleteDefault($data,$aRoot) {
 			<input type="hidden" name="fromForm" value="'.$data->action[3].'" />
 		</form>';
 }
-
 function theme_dynamicFormsDeleteFieldCancelled($data,$aRoot) {
 	echo $data->phrases['dynamic-forms']['deleteFieldCancelledHeading'],'
 		<div class="buttonList"><a href="'.$aRoot.'listFields/'.$data->output['formItem']['id'].'" title="Return To Field List">',$data->phrases['dynamic-forms']['returnToFields'],'</a></div>';
 }
-
 function theme_dynamicFormsDeleteFieldDeleted($data,$aRoot) {
 	echo '<h2>',$data->phrases['dynamic-forms']['deleteFieldSuccessHeading'],'</h2><p>',$data->phrases['dynamic-forms']['deleteFieldSuccessMessage'],$data->phrases['core']['messageRedirect'],'<a href="',$aRoot,'list">',$data->phrases['core']['linkSkipWait'],'</a></p>';
 }
-
 function theme_dynamicFormsDeleteFieldDefault($data,$aRoot) {
 	echo '
 		<form action="'.$aRoot.'deleteField/'.$data->action[3].'" method="post" class="verifyForm">
@@ -80,15 +74,12 @@ function theme_dynamicFormsDeleteFieldDefault($data,$aRoot) {
 			<input type="hidden" name="fromForm" value="'.$data->action[3].'" />
 		</form>';
 }
-
 function theme_dynamicFormsDeleteOptionCancelled($data,$aRoot) {
 	echo 'You have cancelled the deletion. <div class="buttonList"><a href="'.$aRoot.'listOptions/'.$data->output['optionItem']['fieldId'].'" title="Return To Options">Return To Options.</a></div>';
 }
-
 function theme_dynamicFormsDeleteOptionDeleted($data,$aRoot) {
 	echo '<h2>',$data->phrases['dynamic-forms']['deleteOptionCancelledHeading'],'</h2><p>',$data->phrases['core']['deleteOptionSuccessMessage'],'<br />',$data->phrases['core']['messageRedirect'],'<a href="',$aRoot,'list">',$data->phrases['core']['linkSkipWait'],'</a></p>';
 }
-
 function theme_dynamicFormsDeleteOptionDefault($data,$aRoot) {
 	echo '
 		<form action="'.$aRoot.'deleteOption/'.$data->action[3].'" method="post" class="verifyForm">
@@ -100,19 +91,16 @@ function theme_dynamicFormsDeleteOptionDefault($data,$aRoot) {
 			<input type="hidden" name="fromForm" value="'.$data->action[3].'" />
 		</form>';
 }
-
 function theme_dynamicFormsListNewButton($data) {
 	echo '
 		<div class="panel buttonList">
 			<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/addForm">',$data->phrases['dynamic-forms']['newForm'],'</a>
 		</div>';
 }
-
 function theme_dynamicFormsListNoForms($data) {
 	echo '
 		<p class="formsListNoForms">',$data->phrases['dynamic-forms']['noFormsExist'],'</p>';
 }
-
 function theme_dynamicFormsListTableHead($data) {
 	echo '
 		<table class="formsList">
@@ -126,7 +114,6 @@ function theme_dynamicFormsListTableHead($data) {
 				</tr>
 			</thead><tbody>';
 }
-
 function theme_dynamicFormsListTableRow($data,$form,$count) {
 	echo '
 			<tr class="',($count%2==0 ? 'odd' : 'even'),'">
@@ -144,14 +131,12 @@ function theme_dynamicFormsListTableRow($data,$form,$count) {
 			</tr>
 		';
 }
-
 function theme_dynamicFormsListTableFoot() {
 	echo '
 		</tbody>
 	</table>
 	';
 }
-
 function theme_dynamicFormsListFieldsTableHead($data) {
 	echo '
 		<div class="panel buttonList">
@@ -176,7 +161,6 @@ function theme_dynamicFormsListFieldsTableHead($data) {
 			</thead>
 			';
 }
-
 function theme_dynamicFormsListFieldsTableRow($data,$field,$count) {
 	if(isset($field['fieldGroup'],$data->output['fieldGroups'][$field['fieldGroup']])&&$field['fieldGroup']!==$data->output['priorGroup']){
 		echo '<tr class="level0"><td colspan="5">',$data->output['fieldGroups'][$field['fieldGroup']]['groupName'],'</td></tr>';
@@ -193,6 +177,7 @@ function theme_dynamicFormsListFieldsTableRow($data,$field,$count) {
 			<a href="',$data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listOptions/',$field['id'],'">',$data->phrases['dynamic-forms']['options'],'</a>';
 	}
 	echo'
+      <a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listfieldparams/', $field['id'], '">',$data->phrases['dynamic-forms']['formFieldParamsLabel'],'</a>
 			<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/editField/', $field['id'], '">',$data->phrases['core']['actionEdit'],'</a>
 			<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/deleteField/', $field['id'], '">',$data->phrases['core']['actionDelete'],'</a>
 			<a href="', $data->linkRoot, 'admin/'.$data->output['moduleShortName']['dynamicForms'].'/listFields/', $data->output['form']['id'], '/moveUp/', $field['id'], '">&uArr;</a>
@@ -201,13 +186,11 @@ function theme_dynamicFormsListFieldsTableRow($data,$field,$count) {
 	</tr>
 	';
 }
-
 function theme_dynamicFormsListFieldsTableFoot() {
 	echo '
 		</table>
 	';
 }
-
 function theme_dynamicFormsListOptionsButtons($data) {
 	echo 
 	'<div class="panel buttonList">
@@ -215,7 +198,6 @@ function theme_dynamicFormsListOptionsButtons($data) {
 		<a href="'.$data->linkRoot.'admin/'.$data->output['moduleShortName']['dynamicForms'].'/addOption/'.$data->output['fieldItem']['id'].'" title="Add An Option">',$data->phrases['dynamic-forms']['addOption'],'</a>
 	</div>';
 }
-
 function theme_dynamicFormsListOptionsTableHead($data) {
 	echo '
 		<table class="formsList">
@@ -226,7 +208,6 @@ function theme_dynamicFormsListOptionsTableHead($data) {
 			</tr>
 			';
 }
-
 function theme_dynamicFormsListOptionsNoOptions($data) {
 	echo '
 			<tr>
@@ -234,7 +215,6 @@ function theme_dynamicFormsListOptionsNoOptions($data) {
 			</tr>
 		</table>';
 }
-
 function theme_dynamicFormsListOptionsTableRow($data,$option,$i) {
 	echo '
 		<tr class="',($i%2 == 0 ? 'even' : 'odd'),'">';
@@ -250,13 +230,11 @@ function theme_dynamicFormsListOptionsTableRow($data,$option,$i) {
 		</tr>
 	';
 }
-
 function theme_dynamicFormsListOptionsTableFoot() {
 	echo '
 		</table>
 	';
 }
-
 function theme_dynamicFormsSidebarsTableHead($data) {
 	echo '
 		<table class="sidebarList">
@@ -269,7 +247,6 @@ function theme_dynamicFormsSidebarsTableHead($data) {
 				</tr>
 			</thead><tbody>';
 }
-
 function theme_dynamicFormsSidebarsTableRow($data,$sidebar,$action,$count) {
 	echo '
 			<tr class="',($count%2==0 ? 'odd' : 'even'),'">
@@ -284,44 +261,37 @@ function theme_dynamicFormsSidebarsTableRow($data,$sidebar,$action,$count) {
 				</td>
 			</tr>';
 }
-
 function theme_dynamicFormsSidebarsTableFoot() {
 	echo '
 			</tbody>
 		</table>';
 }
-
 function theme_viewdataTableHead() {
 	echo '
 		<table class="formsList">
 			<tr>
 		';
 }
-
 function theme_viewdataTableHeadCell($field) {
 	echo '
 			<th>', $field['name'], '</th>
 		';
 }
-
 function theme_viewdataTableStartRow() {
 	echo '
 			<tr>
 		';
 }
-
 function theme_viewdataTableCell($value) {
 	echo '
 			<td>', $value, '</td>
 		';
 }
-
 function theme_viewdataTableFoot() {
 	echo '
 		</table>
 	';
 }
-
 function theme_dynamicFormsFieldGroupTable($data){
 	echo '
 	<div class="panel buttonList">
@@ -349,6 +319,38 @@ function theme_dynamicFormsFieldGroupTable($data){
 			<td class="buttonList">
 				<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/editFieldGroup/',$group['id'],'">',$data->phrases['dynamic-forms']['editFieldGroup'],'</a>
 				<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/deleteFieldGroup/',$group['id'],'">',$data->phrases['dynamic-forms']['deleteFieldGroup'],'</a>
+			</td>
+		</tr>';
+	}
+	echo '</tbody>
+	</table>';
+}
+function theme_dynamicFormsFieldParamsTable($data){
+	echo '
+	<div class="panel buttonList">
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/addFieldParam/',$data->output['field']['id'],'">
+				',$data->phrases['dynamic-forms']['addFieldParam'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/',$data->output['moduleShortName']['dynamicForms'],'/listFields/',$data->output['field']['form'],'">
+				',$data->phrases['dynamic-forms']['returnToFields'],'
+			</a>
+	</div>
+	<table class="formsList">
+		<caption>',$data->phrases['dynamic-forms']['formFieldParamsLabel'],'</caption>
+		<thead>
+			<tr>
+				<th>',$data->phrases['dynamic-forms']['parameterFormFieldLabel'],'</th>
+				<th>',$data->phrases['dynamic-forms']['valueFormFieldLabel'],'</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>';
+	foreach($data->output['fieldParams'] as $param){
+		echo '<tr>
+			<td>',$param['param'],'</td>
+			<td>',$param['value'],'</td>
+			<td class="buttonList">
+				<a href="',$data->linkRoot,'admin/'.$data->output['moduleShortName']['dynamicForms'].'/editFieldParam/',$param['id'],'">',$data->phrases['dynamic-forms']['modifyFieldParam'],'</a>
 			</td>
 		</tr>';
 	}

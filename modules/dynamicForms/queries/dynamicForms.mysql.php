@@ -267,7 +267,7 @@ function dynamicForms_addQueries() {
 			UPDATE !prefix!form_fields!lang!
 			SET sortOrder = sortOrder - 1
 			WHERE sortOrder > :sortOrder AND form = :formId
-		',
+		'
 	);
 }
 ?>

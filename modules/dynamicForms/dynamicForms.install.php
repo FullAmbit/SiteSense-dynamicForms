@@ -81,6 +81,7 @@ function dynamicForms_install($db, $drop=false, $firstInstall=false, $lang='en_u
 			'groupLegend'          => SQR_title
 		),
 		'form_fields_params' => array(
+      'id'                   => SQR_IDKey,
 			'form'                 => SQR_ID,
 			'field'                => SQR_ID,
 			'param'                => 'VARCHAR(31) NOT NULL',

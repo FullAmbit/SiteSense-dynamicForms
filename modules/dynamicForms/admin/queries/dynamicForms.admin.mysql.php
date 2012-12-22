@@ -328,6 +328,33 @@ function admin_dynamicForms_addQueries() {
 			WHERE formId = :formId
 			ORDER BY groupName ASC
 		',
+		'addFieldParam' => '
+      INSERT INTO !prefix!form_fields_params!lang!
+      (form,field,param,value)
+      VALUES (:form,:field,:param,:value)
+		',
+    'getFieldParam' => '
+      SELECT *
+      FROM !prefix!form_fields_params!lang!
+      WHERE form = :form
+      AND field = :field
+      AND param = :param
+		',
+    'getFieldParamByID' => '
+      SELECT *
+      FROM !prefix!form_fields_params!lang!
+      WHERE id = :id
+		',
+		'getParamsByFieldID' => '
+      SELECT *
+      FROM !prefix!form_fields_params!lang!
+      WHERE field = :field
+		',
+		'getFieldParamsByFormID' => '
+      SELECT *
+      FROM !prefix!form_fields_params!lang!
+      WHERE form = :form
+		'
 	);
 }
 ?>

@@ -75,6 +75,10 @@ function dynamicForms_buildContent($data,$db) {
 	$rawFields = $statement->fetchAll(PDO::FETCH_ASSOC);
 	$rawForm = array();
 	
+  // Load field params
+  $statement=$db->prepare('getFieldParamsByFormID','admin_dynamicForms');
+  $statement->execute(array(':form' => $data->output['form']['id']));
+  $data->output['fieldParams']=$statement->fetchAll(PDO::FETCH_ASSOC); 
 	
 	// Get Original Values?
 	if($data->action[2]=='edit' && $data->action[3]!==FALSE){
@@ -195,7 +199,6 @@ function dynamicForms_buildContent($data,$db) {
 		}
 		$rawForm[$f['name']] = $f;
 	}
-	
 	// Check For URL Replacement Or A Redirect -- from index.php -- modified
 	$queryString = implode('/',array_filter($data->action));
 	$statement = $db->prepare('findReplacement');
