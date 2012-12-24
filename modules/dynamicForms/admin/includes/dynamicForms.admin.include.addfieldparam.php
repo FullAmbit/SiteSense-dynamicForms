@@ -45,6 +45,7 @@ function admin_dynamicFormsBuild($data,$db) {
 		return;
 	}
   $data->output['fromForm']=new formHandler('formFieldParam',$data,true);
+  $data->output['fromForm']->caption=$data->phrases['dynamic-forms']['addFieldParam'];
   if((!empty($_POST['fromForm']))&&($_POST['fromForm']==$data->output['fromForm']->fromForm)) {
 		$data->output['fromForm']->populateFromPostData();
 		if ($data->output['fromForm']->validateFromPost()) {
