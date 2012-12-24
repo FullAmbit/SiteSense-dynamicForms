@@ -107,6 +107,7 @@ function languages_dynamicForms_admin_en_us(){
 		'addFieldParam'                       => 'Add Parameter',
 		'fieldParamSaveSuccessMessage'        => 'Field paramater saved successfully.',
 		'modifyFieldParam'                    => 'Modify Parameter'
+		'saveParam'                           => 'Save Parameter'
 	);
 }
 ?>

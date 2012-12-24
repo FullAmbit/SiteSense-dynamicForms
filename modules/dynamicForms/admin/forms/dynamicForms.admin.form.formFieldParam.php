@@ -22,7 +22,7 @@
 * @copyright  Copyright (c) 2011 Full Ambit Media, LLC (http://www.fullambit.com)
 * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 */
-$this->submitTitle=$data->phrases['dynamic-forms']['submitOptions'];
+$this->submitTitle=$data->phrases['dynamic-forms']['saveParam'];
 $this->fields=array(
   'param'=>array(
     'label'    => $data->phrases['dynamic-forms']['parameterFormFieldLabel'],
