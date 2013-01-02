@@ -282,6 +282,7 @@ function dynamicForms_buildContent($data,$db) {
 			foreach($rawFields as $field){
 				$fieldId = $field['id'];
 				$fieldValue = $data->output['customForm']->sendArray[':'.$fieldId];
+				$fieldsIDIndex[$fieldId] = $field;
 				// Is This Field Hooked And Is The Module Enabled?
 				$hookParts=explode('.',$field['moduleHook'],2);
 				if($field['moduleHook'] !== NULL && isset($moduleList[$hookParts[0]])){
@@ -312,7 +313,7 @@ function dynamicForms_buildContent($data,$db) {
 			if(isset($form['api']{1}) && $form['api'] !== NULL) {
 				common_loadPlugin($data,$form['api']);
 				if(method_exists($data->plugins[$form['api']],'runFromCustomForm')) {
-					$data->plugins[$form['api']]->runFromCustomForm($processedFields,$data->output['customForm']->sendArray);
+					$data->plugins[$form['api']]->runFromCustomForm($fieldsIDIndex,$data->output['customForm']->sendArray);
 				}
 			}
 			// Are We E-Mailing This?
